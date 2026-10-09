@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+.vscode/
+data/
+node_modules/
+tmp/
+*.log
+npm-debug.log*

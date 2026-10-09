@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="hy">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#17365d">
+  <meta name="description" content="Բանկային հաշվի քաղվածքներ">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/node_modules/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="/static/css/app.css?v=24">
+  <title>Բանկային հաշվի քաղվածքներ</title>
+  <script defer src="/node_modules/flatpickr/dist/flatpickr.min.js"></script>
+  <script defer src="/node_modules/flatpickr/dist/l10n/hy.js"></script>
+  <script defer src="/static/js/bank-download.js?v=25"></script>
+</head>
+<body>
+  <div id="boot" class="boot-screen"><div class="boot-mark" aria-hidden="true"><span></span></div><p>Պատրաստում ենք տվյալները</p><small>Մի պահ խնդրում ենք</small></div>
+  <main id="app" class="app-shell" hidden>
+    <header class="topbar">
+      <h1>Բանկային հաշվի քաղվածք</h1>
+      <button id="logout" class="logout" type="button" hidden>Ելք</button>
+    </header>
+    <section class="filters" aria-label="Քաղվածքի ֆիլտրեր">
+      <div class="date-range"><label>Սկզբի ամսաթիվ<input id="date-from" type="date" required></label><span>—</span><label>Վերջի ամսաթիվ<input id="date-to" type="date" required></label></div>
+      <label class="account-field">Հաշվեհամար<select id="account" required><option value="">Բեռնվում է…</option></select></label>
+      <div class="actions">
+        <button id="view" type="button">Դիտել</button>
+        <button id="download" type="button">Ներբեռնել Excel</button>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </section>
+    <section id="results" class="results" hidden>
+      <div class="result-head"><p id="summary"></p><div><button class="filter" data-filter="credit" type="button">Մուտք</button><button class="filter" data-filter="debit" type="button">Ելք</button></div></div>
+      <div class="table-scroll"><table><thead><tr><th>Գործարքի ամսաթիվ</th><th>Ստեղծման ամսաթիվ</th><th>Ելք</th><th>Մուտք</th><th>Նպատակ / մեկնաբանություն</th><th>Թղթակցող հաշիվ</th><th>Թղթակից</th><th>Գործարքի ID</th></tr></thead><tbody id="transactions"></tbody></table></div>
+    </section>
+  </main>
+
+  <div id="login" class="login-overlay" hidden>
+    <section class="login-visual" aria-hidden="true">
+      <div class="brand"><span class="brand-mark">M</span><span>MILON MINING</span></div>
+      <div class="visual-copy">
+        <p class="eyebrow">SECURE FINANCE WORKSPACE</p>
+        <h2>Բանկային տվյալներ՝<br><strong>անվտանգ մեկ վայրում</strong></h2>
+        <p>Դիտեք հաշիվները, վերլուծեք գործարքները և ներբեռնեք քաղվածքները պաշտպանված միջավայրում։</p>
+      </div>
+      <div class="finance-illustration">
+        <div class="glass-card"><span class="chip"></span><small>ACCOUNT OVERVIEW</small><b>•••• 4850</b><i></i><i></i></div>
+        <div class="chart-card"><span>Հաշվի շարժ</span><div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i></div><svg viewBox="0 0 260 90" preserveAspectRatio="none"><path d="M3 74 C35 68 42 50 70 57 S112 30 143 40 S191 25 257 9"/></svg></div>
+        <div class="secure-badge"><span>✓</span> Պաշտպանված մուտք</div>
+      </div>
+      <div class="visual-foot"><span>Google Authentication</span><i></i><span>Authenticator 2FA</span><i></i><span>Encrypted sessions</span></div>
+    </section>
+    <section class="login-card" aria-labelledby="login-title">
+      <div class="login-brand"><span class="brand-logo" aria-hidden="true"><img src="/static/media/landmark.svg" alt=""></span><div><strong>Milon Mining</strong><small>Banking portal</small></div></div>
+      <h2 id="login-title">Բարի գալուստ</h2>
+      <p id="login-help">Շարունակելու համար մուտք գործեք Google հաշվով։</p>
+      <div id="google-button"></div>
+      <div id="totp-step" hidden>
+        <div id="enrollment" hidden><p>Սկանավորեք QR կոդը Google Authenticator-ով։</p><img id="qr" alt="Authenticator QR"><div class="manual-setup"><span>Կամ ընտրեք «Enter a setup key» և մուտքագրեք այս բանալին․</span><div><code id="manual-key"></code><button id="copy-manual-key" type="button">Պատճենել</button></div><small>Բանալու տեսակը՝ Time based</small></div></div>
+        <form id="totp-form"><label>Authenticator կոդ<input id="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" required></label><button type="submit">Մուտք գործել</button></form>
+      </div>
+      <p id="login-error" class="error" role="alert"></p>
+      <div id="login-loading" class="loading" hidden>Խնդրում ենք սպասել…</div>
+    </section>
+  </div>
+</body>
+</html>
